@@ -20,13 +20,13 @@
 	        <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
 	        <properties>
-	            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/transpasDB" />
+	            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/covidtt" />
 	            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
 	            <property name="hibernate.connection.username" value="hib" />
 	            <property name="hibernate.connection.password" value="hib123" />
 	            <property name="hibernate.show_sql" value="false" />
 	            <property name="hibernate.format_sql" value="false" />
-	            <property name="hibernate.hbm2ddl.auto" value="create" />
+	            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
 	            	<!--  
 						Valores para hbm2ddl.auto
 						
