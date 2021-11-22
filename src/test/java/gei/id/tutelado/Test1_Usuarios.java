@@ -2,8 +2,8 @@ package gei.id.tutelado;
 
 import gei.id.tutelado.configuracion.ConfiguracionJPA;
 import gei.id.tutelado.configuracion.Configuracion;
-import gei.id.tutelado.dao.UsuarioDao;
-import gei.id.tutelado.dao.UsuarioDaoJPA;
+import gei.id.tutelado.dao.UsuarioDaoD;
+import gei.id.tutelado.dao.UsuarioDaoDJPA;
 import gei.id.tutelado.model.UsuarioD;
 
 //import org.apache.log4j.Logger;
@@ -32,7 +32,7 @@ public class Test1_Usuarios {
     private static ProdutorDatosProba produtorDatos = new ProdutorDatosProba();
     
     private static Configuracion cfg;
-    private static UsuarioDao usuDao;
+    private static UsuarioDaoD usuDao;
     
     @Rule
     public TestRule watcher = new TestWatcher() {
@@ -55,7 +55,7 @@ public class Test1_Usuarios {
     	cfg = new ConfiguracionJPA();
     	cfg.start();
 
-    	usuDao = new UsuarioDaoJPA();
+    	usuDao = new UsuarioDaoDJPA();
     	usuDao.setup(cfg);
     	
     	produtorDatos = new ProdutorDatosProba();

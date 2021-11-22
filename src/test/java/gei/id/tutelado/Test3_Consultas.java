@@ -4,8 +4,8 @@ import gei.id.tutelado.configuracion.Configuracion;
 import gei.id.tutelado.configuracion.ConfiguracionJPA;
 import gei.id.tutelado.dao.EntradaLogDao;
 import gei.id.tutelado.dao.EntradaLogDaoJPA;
-import gei.id.tutelado.dao.UsuarioDao;
-import gei.id.tutelado.dao.UsuarioDaoJPA;
+import gei.id.tutelado.dao.UsuarioDaoD;
+import gei.id.tutelado.dao.UsuarioDaoDJPA;
 import gei.id.tutelado.model.EntradaLog;
 import gei.id.tutelado.model.UsuarioD;
 
@@ -36,7 +36,7 @@ public class Test3_Consultas {
     private static ProdutorDatosProba produtorDatos = new ProdutorDatosProba();
     
     private static Configuracion cfg;
-    private static UsuarioDao usuDao;
+    private static UsuarioDaoD usuDao;
     private static EntradaLogDao logDao;
     
     @Rule
@@ -61,7 +61,7 @@ public class Test3_Consultas {
     	cfg = new ConfiguracionJPA();
     	cfg.start();
 
-    	usuDao = new UsuarioDaoJPA();
+    	usuDao = new UsuarioDaoDJPA();
     	logDao = new EntradaLogDaoJPA();
     	usuDao.setup(cfg);
     	logDao.setup(cfg);

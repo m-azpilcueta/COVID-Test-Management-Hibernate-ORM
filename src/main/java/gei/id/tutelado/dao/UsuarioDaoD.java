@@ -5,7 +5,7 @@ import java.util.List;
 import gei.id.tutelado.configuracion.Configuracion;
 import gei.id.tutelado.model.UsuarioD;
 
-public interface UsuarioDao {
+public interface UsuarioDaoD {
     	
 	void setup (Configuracion config);
 	

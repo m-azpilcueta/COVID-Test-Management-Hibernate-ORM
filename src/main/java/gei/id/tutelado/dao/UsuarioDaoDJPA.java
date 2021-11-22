@@ -11,7 +11,7 @@ import gei.id.tutelado.configuracion.Configuracion;
 import gei.id.tutelado.model.UsuarioD;
 
 
-public class UsuarioDaoJPA implements UsuarioDao {
+public class UsuarioDaoDJPA implements UsuarioDaoD {
 
 	private EntityManagerFactory emf; 
 	private EntityManager em;
