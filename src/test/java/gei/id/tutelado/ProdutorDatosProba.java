@@ -20,8 +20,8 @@ public class ProdutorDatosProba {
 	
 	private EntityManagerFactory emf=null;
 	
-	public Usuario u0, u1;
-	public List<Usuario> listaxeU;
+	public UsuarioD u0, u1;
+	public List<UsuarioD> listaxeU;
 	
 	public EntradaLog e1A, e1B;
 	public List<EntradaLog> listaxeE;
@@ -37,17 +37,17 @@ public class ProdutorDatosProba {
 		// Crea dous usuarios EN MEMORIA: u0, u1
 		// SEN entradas de log
 		
-		this.u0 = new Usuario();
+		this.u0 = new UsuarioD();
         this.u0.setNif("000A");
         this.u0.setNome("Usuario cero");
         this.u0.setDataAlta(LocalDate.now());
 
-        this.u1 = new Usuario();
+        this.u1 = new UsuarioD();
         this.u1.setNif("111B");
         this.u1.setNome("Usuaria un");
         this.u1.setDataAlta(LocalDate.now());
 
-        this.listaxeU = new ArrayList<Usuario> ();
+        this.listaxeU = new ArrayList<UsuarioD> ();
         this.listaxeU.add(0,u0);
         this.listaxeU.add(1,u1);        
 
@@ -90,9 +90,9 @@ public class ProdutorDatosProba {
 			em = emf.createEntityManager();
 			em.getTransaction().begin();
 
-			Iterator<Usuario> itU = this.listaxeU.iterator();
+			Iterator<UsuarioD> itU = this.listaxeU.iterator();
 			while (itU.hasNext()) {
-				Usuario u = itU.next();
+				UsuarioD u = itU.next();
 				em.persist(u);
 				// DESCOMENTAR SE A PROPAGACION DO PERSIST NON ESTA ACTIVADA
 				/*

@@ -7,7 +7,7 @@ import gei.id.tutelado.dao.EntradaLogDaoJPA;
 import gei.id.tutelado.dao.UsuarioDao;
 import gei.id.tutelado.dao.UsuarioDaoJPA;
 import gei.id.tutelado.model.EntradaLog;
-import gei.id.tutelado.model.Usuario;
+import gei.id.tutelado.model.UsuarioD;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -203,7 +203,7 @@ public class Test2_Usuarios_Entradas {
     @Test 
     public void t2b_CRUD_TestRecupera() {
     	
-    	Usuario u;
+    	UsuarioD u;
     	EntradaLog e;
     	Boolean excepcion;
     	

@@ -4,7 +4,7 @@ import gei.id.tutelado.configuracion.ConfiguracionJPA;
 import gei.id.tutelado.configuracion.Configuracion;
 import gei.id.tutelado.dao.UsuarioDao;
 import gei.id.tutelado.dao.UsuarioDaoJPA;
-import gei.id.tutelado.model.Usuario;
+import gei.id.tutelado.model.UsuarioD;
 
 //import org.apache.log4j.Logger;
 import org.junit.After;
@@ -103,7 +103,7 @@ public class Test1_Usuarios {
     @Test 
     public void t2_CRUD_TestRecupera() {
     	
-    	Usuario u;
+    	UsuarioD u;
     	
     	log.info("");	
 		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
@@ -161,7 +161,7 @@ public class Test1_Usuarios {
     @Test 
     public void t4_CRUD_TestModifica() {
     	
-    	Usuario u1, u2;
+    	UsuarioD u1, u2;
     	String novoNome;
     	
     	log.info("");	

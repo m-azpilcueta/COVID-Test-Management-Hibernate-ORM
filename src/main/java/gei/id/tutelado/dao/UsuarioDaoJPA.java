@@ -8,7 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import org.hibernate.LazyInitializationException;
 
 import gei.id.tutelado.configuracion.Configuracion;
-import gei.id.tutelado.model.Usuario;
+import gei.id.tutelado.model.UsuarioD;
 
 
 public class UsuarioDaoJPA implements UsuarioDao {
@@ -22,7 +22,7 @@ public class UsuarioDaoJPA implements UsuarioDao {
 	}
 
 	@Override
-	public Usuario almacena(Usuario user) {
+	public UsuarioD almacena(UsuarioD user) {
 
 		try {
 			em = emf.createEntityManager();
@@ -44,7 +44,7 @@ public class UsuarioDaoJPA implements UsuarioDao {
 	}
 
 	@Override
-	public Usuario modifica(Usuario user) {
+	public UsuarioD modifica(UsuarioD user) {
 
 		try {
 			
@@ -67,13 +67,13 @@ public class UsuarioDaoJPA implements UsuarioDao {
 	}
 
 	@Override
-	public void elimina(Usuario user) {
+	public void elimina(UsuarioD user) {
 		try {
 			
 			em = emf.createEntityManager();
 			em.getTransaction().begin();
 
-			Usuario userTmp = em.find (Usuario.class, user.getId());
+			UsuarioD userTmp = em.find (UsuarioD.class, user.getId());
 			em.remove (userTmp);
 
 			em.getTransaction().commit();
@@ -90,14 +90,14 @@ public class UsuarioDaoJPA implements UsuarioDao {
 
 
 	@Override
-	public Usuario recuperaPorNif(String nif) {
-		List <Usuario> usuarios=null;
+	public UsuarioD recuperaPorNif(String nif) {
+		List <UsuarioD> usuarios=null;
 
 		try {
 			em = emf.createEntityManager();
 			em.getTransaction().begin();
 
-			usuarios = em.createNamedQuery("Usuario.recuperaPorNif", Usuario.class).setParameter("nif", nif).getResultList(); 
+			usuarios = em.createNamedQuery("Usuario.recuperaPorNif", UsuarioD.class).setParameter("nif", nif).getResultList(); 
 
 			em.getTransaction().commit();
 			em.close();	
@@ -116,7 +116,7 @@ public class UsuarioDaoJPA implements UsuarioDao {
 
 
 	@Override
-	public Usuario restauraEntradasLog(Usuario user) {
+	public UsuarioD restauraEntradasLog(UsuarioD user) {
 		// Devolve o obxecto user coa coleccion de entradas cargada (se non o estaba xa)
 
 		try {
@@ -159,14 +159,14 @@ public class UsuarioDaoJPA implements UsuarioDao {
 	}
 
 	@Override
-	public List<Usuario> recuperaTodos() {
-		List <Usuario> usuarios=null;
+	public List<UsuarioD> recuperaTodos() {
+		List <UsuarioD> usuarios=null;
 
 		try {
 			em = emf.createEntityManager();
 			em.getTransaction().begin();
 
-			usuarios = em.createNamedQuery("Usuario.recuperaTodos", Usuario.class).getResultList(); 
+			usuarios = em.createNamedQuery("Usuario.recuperaTodos", UsuarioD.class).getResultList(); 
 
 			em.getTransaction().commit();
 			em.close();	

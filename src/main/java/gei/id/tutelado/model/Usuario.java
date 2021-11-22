@@ -1,95 +1,131 @@
 package gei.id.tutelado.model;
 
-import javax.persistence.*;
+
+
 import java.time.LocalDate;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import javax.persistence.*;
 
-@TableGenerator(name="xeradorIdsUsuarios", table="taboa_ids",
-pkColumnName="nome_id", pkColumnValue="idUsuario",
-valueColumnName="ultimo_valor_id",
-initialValue=0, allocationSize=1)
-
-@NamedQueries ({
-	@NamedQuery (name="Usuario.recuperaPorNif",
-				 query="SELECT u FROM Usuario u where u.nif=:nif"),
-	@NamedQuery (name="Usuario.recuperaTodos",
-				 query="SELECT u FROM Usuario u ORDER BY u.nif")
-})
-
+@TableGenerator(name="id_us_gen", table = "tabla_ids", pkColumnName = "nombre_id", pkColumnValue = "idUser", 
+valueColumnName = "ultimo_valor_id", initialValue = 0, allocationSize = 1)
 @Entity
-public class Usuario {
-    @Id
-    @GeneratedValue (generator="xeradorIdsUsuarios")
-    private Long id;
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Usuario {
+	@Id
+	@GeneratedValue(generator = "id_us_gen")
+	private Long id;
+	
+	@Column(nullable = false, unique = false)
+	private String nombre;
+	
+	@Column(nullable = false, unique = false)
+	private String apellidos;
+	
+	@Column(nullable = false, unique = false)
+	private LocalDate fechaNac;
+	
+	@Column(nullable = false, unique = true, length = 9)
+	private String dni;
+	
+	@Column(nullable = false, unique = false, length = 1)
+	private String sexo;
+	
+	@Column(nullable = false, unique = false)
+	private String calle;
+	
+	@Column(nullable = false, unique = false)
+	private String localidad;
+	
+	@Column(nullable = false, unique = false)
+	private String provincia;
+	
+	@Column(nullable = false, unique = false, length = 9)
+	private String telefono;
 
-    @Column(nullable = false, unique = true)
-    private String nif;
-
-    @Column(nullable = false, unique=false)
-    private String nome;
-
-    @Column(nullable = false, unique=false)
-    private LocalDate dataAlta;
-    
-    @OneToMany (mappedBy="usuario", fetch=FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.REMOVE} )
-    @OrderBy("dataHora ASC")
-    private SortedSet<EntradaLog> entradasLog = new TreeSet<EntradaLog>();
-    // NOTA: necesitamos @OrderBy, ainda que a colección estea definida como LAZY, por se nalgun momento accedemos á propiedade DENTRO de sesión.
-    // Garantimos así que cando Hibernate cargue a colección, o faga na orde axeitada na consulta que lanza contra a BD
-    public Long getId() {
+	public Long getId() {
 		return id;
-	}
-
-	public String getNif() {
-		return nif;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public LocalDate getDataAlta() {
-		return dataAlta;
-	}
-
-	public SortedSet<EntradaLog> getEntradasLog() {
-		return entradasLog;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public void setNif(String nif) {
-		this.nif = nif;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
-	public void setDataAlta(LocalDate dataAlta) {
-		this.dataAlta = dataAlta;
+	public String getApellidos() {
+		return apellidos;
 	}
 
-	public void setEntradasLog(SortedSet<EntradaLog> entradasLog) {
-		this.entradasLog = entradasLog;
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
 	}
-	
-	// Metodo de conveniencia para asegurarnos de que actualizamos os dous extremos da asociación ao mesmo tempo
-	public void engadirEntradaLog(EntradaLog entrada) {
-		if (entrada.getUsuario() != null) throw new RuntimeException ("");
-		entrada.setUsuario(this);
-		// É un sorted set, engadimos sempre por orde de data (ascendente)
-		this.entradasLog.add(entrada);
+
+	public LocalDate getFechaNac() {
+		return fechaNac;
+	}
+
+	public void setFechaNac(LocalDate fechaNac) {
+		this.fechaNac = fechaNac;
+	}
+
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+
+	public String getCalle() {
+		return calle;
+	}
+
+	public void setCalle(String calle) {
+		this.calle = calle;
+	}
+
+	public String getLocalidad() {
+		return localidad;
+	}
+
+	public void setLocalidad(String localidad) {
+		this.localidad = localidad;
+	}
+
+	public String getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((nif == null) ? 0 : nif.hashCode());
+		result = prime * result + ((dni == null) ? 0 : dni.hashCode());
 		return result;
 	}
 
@@ -102,22 +138,21 @@ public class Usuario {
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
-		if (nif == null) {
-			if (other.nif != null)
+		if (dni == null) {
+			if (other.dni != null)
 				return false;
-		} else if (!nif.equals(other.nif))
+		} else if (!dni.equals(other.dni))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", nif=" + nif + ", nome=" + nome + ", dataAlta=" + dataAlta + "]";
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellidos=" + apellidos + ", fechaNac=" + fechaNac
+				+ ", dni=" + dni + ", sexo=" + sexo + ", calle=" + calle + ", localidad=" + localidad + ", provincia="
+				+ provincia + ", telefono=" + telefono + "]";
 	}
-
-    
-
-
-
-    
+		
+	
+	
 }

@@ -7,7 +7,7 @@ import javax.persistence.EntityManagerFactory;
 
 import gei.id.tutelado.configuracion.Configuracion;
 import gei.id.tutelado.model.EntradaLog;
-import gei.id.tutelado.model.Usuario;
+import gei.id.tutelado.model.UsuarioD;
 
 public class EntradaLogDaoJPA implements EntradaLogDao {
 
@@ -112,7 +112,7 @@ public class EntradaLogDaoJPA implements EntradaLogDao {
 
 	
 	@Override
-	public List<EntradaLog> recuperaTodasUsuario(Usuario u) {
+	public List<EntradaLog> recuperaTodasUsuario(UsuarioD u) {
 		List <EntradaLog> entradas=null;
 
 		try {

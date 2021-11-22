@@ -15,7 +15,7 @@
 
 	 		<!-- Entity classes --> 
 	        <class>gei.id.tutelado.model.Usuario</class>
-	        <class>gei.id.tutelado.model.EntradaLog</class>
+	        
        
 	        <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
@@ -26,7 +26,7 @@
 	            <property name="hibernate.connection.password" value="hib123" />
 	            <property name="hibernate.show_sql" value="false" />
 	            <property name="hibernate.format_sql" value="false" />
-	            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+	            <property name="hibernate.hbm2ddl.auto" value="create" />
 	            	<!--  
 						Valores para hbm2ddl.auto
 						

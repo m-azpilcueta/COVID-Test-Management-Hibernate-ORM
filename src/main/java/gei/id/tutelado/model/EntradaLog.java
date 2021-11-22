@@ -33,7 +33,7 @@ public class EntradaLog implements Comparable<EntradaLog> {
 
     @ManyToOne (cascade={}, fetch=FetchType.EAGER)
     @JoinColumn (nullable=false, unique=false)
-    private Usuario usuario;
+    private UsuarioD usuario;
 
 	public Long getId() {
 		return id;
@@ -51,7 +51,7 @@ public class EntradaLog implements Comparable<EntradaLog> {
 		return dataHora;
 	}
 
-	public Usuario getUsuario() {
+	public UsuarioD getUsuario() {
 		return usuario;
 	}
 
@@ -71,7 +71,7 @@ public class EntradaLog implements Comparable<EntradaLog> {
 		this.dataHora = dataHora;
 	}
 
-	public void setUsuario(Usuario usuario) {
+	public void setUsuario(UsuarioD usuario) {
 		this.usuario = usuario;
 	}
 

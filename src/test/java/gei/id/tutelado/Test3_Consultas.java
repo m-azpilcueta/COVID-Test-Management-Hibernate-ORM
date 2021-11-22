@@ -7,7 +7,7 @@ import gei.id.tutelado.dao.EntradaLogDaoJPA;
 import gei.id.tutelado.dao.UsuarioDao;
 import gei.id.tutelado.dao.UsuarioDaoJPA;
 import gei.id.tutelado.model.EntradaLog;
-import gei.id.tutelado.model.Usuario;
+import gei.id.tutelado.model.UsuarioD;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -92,7 +92,7 @@ public class Test3_Consultas {
     @Test 
     public void t1_CRUD_TestQuery_Usuario_recuperaTodos() {
 
-    	List<Usuario> listaU;    	
+    	List<UsuarioD> listaU;    	
 
     	log.info("");	
 		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");

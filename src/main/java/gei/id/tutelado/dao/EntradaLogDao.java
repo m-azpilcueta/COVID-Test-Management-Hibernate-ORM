@@ -4,7 +4,7 @@ import java.util.List;
 
 import gei.id.tutelado.configuracion.Configuracion;
 import gei.id.tutelado.model.EntradaLog;
-import gei.id.tutelado.model.Usuario;
+import gei.id.tutelado.model.UsuarioD;
 
 public interface EntradaLogDao {
     
@@ -17,6 +17,6 @@ public interface EntradaLogDao {
 	EntradaLog recuperaPorCodigo (String codigo);
 	
 	//QUERIES ADICIONAIS
-	List<EntradaLog> recuperaTodasUsuario(Usuario u);
+	List<EntradaLog> recuperaTodasUsuario(UsuarioD u);
 
 }
