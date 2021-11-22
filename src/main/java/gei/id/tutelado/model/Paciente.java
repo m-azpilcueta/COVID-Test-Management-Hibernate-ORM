@@ -5,6 +5,13 @@ import java.util.TreeSet;
 
 import javax.persistence.*;
 
+@NamedQueries({
+	@NamedQuery(name = "Paciente.recuperarNumPositivosPorNss",
+			query = "SELECT p.nss, count(*) FROM Paciente p INNER JOIN p.pruebas pr WHERE p.nss=:nss AND pr.resultado IS TRUE"),
+	@NamedQuery(name = "Paciente.recuperarPacienteSinPruebas", 
+			query = "SELECT p FROM Paciente p LEFT OUTER JOIN p.pruebas pr WHERE pr IS NULL")
+})
+
 @Entity
 public class Paciente extends Usuario {
 	
