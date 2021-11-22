@@ -5,6 +5,11 @@ package gei.id.tutelado.model;
 import java.time.LocalDate;
 import javax.persistence.*;
 
+@NamedQueries({
+	@NamedQuery(name = "Usuario.findById",
+			query = "SELECT u from Usuario u WHERE u.dni=:dni"),
+})
+
 @TableGenerator(name="id_us_gen", table = "tabla_ids", pkColumnName = "nombre_id", pkColumnValue = "idUser", 
 valueColumnName = "ultimo_valor_id", initialValue = 0, allocationSize = 1)
 @Entity

@@ -6,6 +6,12 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+@NamedQueries({
+	@NamedQuery(name = "Prueba.findByCodigo",
+			query = "SELECT p from Prueba p WHERE p.codPrueba=:codPrueba"),
+	
+})
+
 @TableGenerator(name="id_prueba_gen", table = "tabla_ids", pkColumnName = "nombre_id", pkColumnValue = "idPrueba", 
 valueColumnName = "ultimo_valor_id", initialValue = 0, allocationSize = 1)
 @Entity

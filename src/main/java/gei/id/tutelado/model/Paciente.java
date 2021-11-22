@@ -32,5 +32,11 @@ public class Paciente extends Usuario {
 		this.pruebas = pruebas;
 	}
 	
+	public void addPrueba(Prueba prueba) {
+		if (prueba.getPaciente() != null) throw new RuntimeException("¡Paciente ya asignado!");
+		prueba.setPaciente(this);
+		this.pruebas.add(prueba);
+	}
+	
 	
 }
