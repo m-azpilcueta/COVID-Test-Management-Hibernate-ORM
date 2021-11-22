@@ -45,5 +45,11 @@ public class Paciente extends Usuario {
 		this.pruebas.add(prueba);
 	}
 	
+	public void removePrueba(Prueba prueba) {
+		if (prueba == null) throw new RuntimeException("¡Intentando eliminar prueba nula!");
+		if (!this.pruebas.contains(prueba)) throw new RuntimeException("¡El paciente no tiene la prueba!");
+		this.pruebas.remove(prueba);
+		prueba.setPaciente(null);
+	}
 	
 }
