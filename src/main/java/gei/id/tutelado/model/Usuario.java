@@ -10,6 +10,7 @@ valueColumnName = "ultimo_valor_id", initialValue = 0, allocationSize = 1)
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Usuario {
+	
 	@Id
 	@GeneratedValue(generator = "id_us_gen")
 	private Long id;
@@ -26,8 +27,8 @@ public abstract class Usuario {
 	@Column(nullable = false, unique = true, length = 9)
 	private String dni;
 	
-	@Column(nullable = false, unique = false, length = 1)
-	private String sexo;
+	@Column(nullable = false, unique = false)
+	private char sexo;
 	
 	@Column(nullable = false, unique = false)
 	private String calle;
@@ -81,11 +82,11 @@ public abstract class Usuario {
 		this.dni = dni;
 	}
 
-	public String getSexo() {
+	public char getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(String sexo) {
+	public void setSexo(char sexo) {
 		this.sexo = sexo;
 	}
 
