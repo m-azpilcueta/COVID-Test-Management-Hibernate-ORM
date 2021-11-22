@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import javax.persistence.*;
 
 @NamedQueries({
-	@NamedQuery(name = "Usuario.findById",
+	@NamedQuery(name = "Usuario.findByDni",
 			query = "SELECT u from Usuario u WHERE u.dni=:dni"),
 })
 
