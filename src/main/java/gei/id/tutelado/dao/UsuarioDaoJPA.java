@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 import gei.id.tutelado.configuracion.Configuracion;
+import gei.id.tutelado.model.Paciente;
 import gei.id.tutelado.model.Usuario;
 
 public class UsuarioDaoJPA implements UsuarioDao {
@@ -105,6 +106,28 @@ public class UsuarioDaoJPA implements UsuarioDao {
 			}
 		}
 		return (usuarios.size() != 0 ? usuarios.get(0) : null);
+	}
+	
+	@Override
+	public List<Paciente> recuperaPacientesSinPruebas() {
+		List<Paciente> pacientes = null;
+		
+		try {
+			em = emf.createEntityManager();
+			em.getTransaction().begin();
+			
+			pacientes = em.createNamedQuery("Paciente.recuperarPacienteSinPruebas", Paciente.class).getResultList();
+			
+			em.getTransaction().commit();
+			em.close();
+		} catch (Exception ex) {
+			if (em!=null && em.isOpen()) {
+				if (em.getTransaction().isActive()) em.getTransaction().rollback();
+				em.close();
+				throw(ex);
+			}
+		}
+		return pacientes;
 	}
 	
 }

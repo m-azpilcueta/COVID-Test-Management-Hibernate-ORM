@@ -2,6 +2,9 @@ package gei.id.tutelado.model;
 
 import javax.persistence.*;
 
+@NamedQuery(name = "Sanitario.recuperarNumPruebas",
+			query = "SELECT count(*) FROM prueba p INNER JOIN p.sanitario s WHERE s.dni=:dni")
+
 @Entity
 public class Sanitario extends Usuario {
 	

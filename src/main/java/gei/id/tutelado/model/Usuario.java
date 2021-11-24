@@ -7,9 +7,7 @@ import javax.persistence.*;
 
 @NamedQueries({
 	@NamedQuery(name = "Usuario.findByDni",
-			query = "SELECT u from Usuario u WHERE u.dni=:dni"),
-	@NamedQuery(name = "Sanitario.recuperarNumPruebas",
-			query = "SELECT count(*) FROM prueba p INNER JOIN p.sanitario s WHERE s.dni=:dni")
+			query = "SELECT u from Usuario u WHERE u.dni=:dni")
 })
 
 @TableGenerator(name="id_us_gen", table = "tabla_ids", pkColumnName = "nombre_id", pkColumnValue = "idUser", 

@@ -1,6 +1,9 @@
 package gei.id.tutelado.dao;
 
+import java.util.List;
+
 import gei.id.tutelado.configuracion.Configuracion;
+import gei.id.tutelado.model.Paciente;
 import gei.id.tutelado.model.Usuario;
 
 public interface UsuarioDao {
@@ -13,4 +16,5 @@ public interface UsuarioDao {
 	Usuario recuperaPorDni(String dni);
 	
 	// Operaciones Adicionales
+	List<Paciente> recuperaPacientesSinPruebas(); // OUTER JOIN
 }
