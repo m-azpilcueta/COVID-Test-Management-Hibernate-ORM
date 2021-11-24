@@ -13,6 +13,8 @@ void setup(Configuracion config);
 	Prueba recuperaPorCod(String cod);
 	
 	// Operaciones LAZY
+	Prueba restauraSintomas(Prueba prueba);
+	Prueba restauraPaciente(Prueba prueba);
 	
 	// Operaciones Adicionales
 }

@@ -12,7 +12,5 @@ public interface UsuarioDao {
 	void elimina(Usuario usuario);
 	Usuario recuperaPorDni(String dni);
 	
-	// Operaciones LAZY
-	
 	// Operaciones Adicionales
 }
