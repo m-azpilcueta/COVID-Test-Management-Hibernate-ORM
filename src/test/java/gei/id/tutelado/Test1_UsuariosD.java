@@ -29,7 +29,7 @@ public class Test1_UsuariosD {
 
     private Logger log = LogManager.getLogger("gei.id.tutelado");
 
-    private static ProdutorDatosProba produtorDatos = new ProdutorDatosProba();
+    private static ProductorDatosPrueba produtorDatos = new ProductorDatosPrueba();
     
     private static Configuracion cfg;
     private static UsuarioDaoD usuDao;
@@ -58,7 +58,7 @@ public class Test1_UsuariosD {
     	usuDao = new UsuarioDaoDJPA();
     	usuDao.setup(cfg);
     	
-    	produtorDatos = new ProdutorDatosProba();
+    	produtorDatos = new ProductorDatosPrueba();
     	produtorDatos.Setup(cfg);
     }
     

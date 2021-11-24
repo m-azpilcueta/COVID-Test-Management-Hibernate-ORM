@@ -33,7 +33,7 @@ public class Test3_ConsultasD {
 
     private Logger log = LogManager.getLogger("gei.id.tutelado");
 
-    private static ProdutorDatosProba produtorDatos = new ProdutorDatosProba();
+    private static ProductorDatosPrueba produtorDatos = new ProductorDatosPrueba();
     
     private static Configuracion cfg;
     private static UsuarioDaoD usuDao;
@@ -66,7 +66,7 @@ public class Test3_ConsultasD {
     	usuDao.setup(cfg);
     	logDao.setup(cfg);
     	
-    	produtorDatos = new ProdutorDatosProba();
+    	produtorDatos = new ProductorDatosPrueba();
     	produtorDatos.Setup(cfg);
     }
     
