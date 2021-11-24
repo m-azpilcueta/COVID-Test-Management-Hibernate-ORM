@@ -1,13 +1,7 @@
 package gei.id.tutelado;
 
-import gei.id.tutelado.configuracion.ConfiguracionJPA;
-import gei.id.tutelado.configuracion.Configuracion;
-import gei.id.tutelado.dao.UsuarioDao;
-import gei.id.tutelado.dao.UsuarioDaoDJPA;
-import gei.id.tutelado.dao.UsuarioDaoJPA;
-import gei.id.tutelado.model.Paciente;
-import gei.id.tutelado.model.Usuario;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 //import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -16,14 +10,18 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
-import org.junit.runners.MethodSorters;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
+import org.junit.runners.MethodSorters;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import gei.id.tutelado.configuracion.Configuracion;
+import gei.id.tutelado.configuracion.ConfiguracionJPA;
+import gei.id.tutelado.dao.UsuarioDao;
+import gei.id.tutelado.dao.UsuarioDaoJPA;
+import gei.id.tutelado.model.Paciente;
+import gei.id.tutelado.model.Sanitario;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class Test1_Usuarios {
@@ -85,31 +83,84 @@ public class Test1_Usuarios {
         log.info("");
         log.info("Configurando situación de partida do test ----------------------------------------------------------------------");
 
-        //CREA u0, u1
+        //CREA p1, p2
         productorDatos.creaPacientesSueltos();
-        //CREA u2, u3
+        //CREA s1, s2
         productorDatos.creaSanitariosSueltos();
 
         log.info("");
         log.info("Inicio do test --------------------------------------------------------------------------------------------------");
-        log.info("Obxectivo: Proba de gravación na BD de novo usuario (sen entradas de log asociadas)\n");
+        log.info("Obxectivo: Proba de gravación na BD de novos usuarios (pacientes e sanitarios) (sen probas asignadas ós pacientes)\n");
 
         // Situación de partida:
-        // u0 transitorio
-        Assert.assertNull(productorDatos.u0.getId());
-        usuDao.almacena(productorDatos.u0);
-        Assert.assertNotNull(productorDatos.u0.getId());
+        // p0 transitorio
+        Assert.assertNull(productorDatos.p0.getId());
+        usuDao.almacena(productorDatos.p0);
+        Assert.assertNotNull(productorDatos.p0.getId());
 
-        Assert.assertNull(productorDatos.u1.getId());
-        usuDao.almacena(productorDatos.u1);
-        Assert.assertNotNull(productorDatos.u1.getId());
+        // Situación de partida:
+        // p1 transitorio
+        Assert.assertNull(productorDatos.p1.getId());
+        usuDao.almacena(productorDatos.p1);
+        Assert.assertNotNull(productorDatos.p1.getId());
+        
+        // Situación de partida:
+        // s0 transitorio
+        Assert.assertNull(productorDatos.s0.getId());
+        usuDao.almacena(productorDatos.s0);
+        Assert.assertNotNull(productorDatos.s0.getId());
 
-        Assert.assertNull(productorDatos.u2.getId());
-        usuDao.almacena(productorDatos.u2);
-        Assert.assertNotNull(productorDatos.u2.getId());
+        // Situación de partida:
+        // s1 transitorio
+        Assert.assertNull(productorDatos.s1.getId());
+        usuDao.almacena(productorDatos.s1);
+        Assert.assertNotNull(productorDatos.s1.getId());
+    }
+    
+    @Test
+    public void t2_CRUD_TestRecupera() {
+    	
+    	Paciente p, inex;
+    	Sanitario s;
+    	
+    	log.info("");
+        log.info("Configurando situación de partida do test ----------------------------------------------------------------------");
+        
+        //CREA p1, p2
+        productorDatos.creaPacientesSueltos();
+        //CREA s1, s2
+        productorDatos.creaSanitariosSueltos();
+        
+        productorDatos.registraUsuarios();
+        
+        log.info("");	
+		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
+    	log.info("Obxectivo: Proba de recuperación desde a BD de pacientes (sen entradas asociadas) e sanitarios por dni\n"   
+    			+ "\t\t\t\t Casos contemplados:\n"
+    			+ "\t\t\t\t a) Recuperación por dni existente\n"
+    			+ "\t\t\t\t b) Recuperacion por dni inexistente\n");
+    	
+    	
+    	log.info("Probando Dni existente (Paciente) --------------------------------------------------------------------------------------------------");
+    	
+    	// Situación de partida:
+    	// p0 desligado
+    	p = (Paciente) usuDao.recuperaPorDni(productorDatos.p0.getDni());
+    	Assert.assertEquals(productorDatos.p0.getDni(),      p.getDni());
+    	Assert.assertEquals(productorDatos.p0.getNombre(),     p.getNombre());
+    	Assert.assertEquals(productorDatos.p0.getFechaNac(), p.getFechaNac());
+    	
+    	log.info("Probando Dni existente (Sanitario) --------------------------------------------------------------------------------------------------");
 
-        Assert.assertNull(productorDatos.u3.getId());
-        usuDao.almacena(productorDatos.u3);
-        Assert.assertNotNull(productorDatos.u3.getId());
+    	// Situación de partida:
+    	// s0 desligado
+    	s = (Sanitario) usuDao.recuperaPorDni(productorDatos.s0.getDni());
+    	Assert.assertEquals(productorDatos.s0.getDni(),      s.getDni());
+    	Assert.assertEquals(productorDatos.s0.getNombre(),     s.getNombre());
+    	Assert.assertEquals(productorDatos.s0.getFechaNac(), s.getFechaNac());
+
+    	log.info("Probando Dni inexistente --------------------------------------------------------------------------------------------------");
+    	inex = (Paciente) usuDao.recuperaPorDni("noexiste");
+    	Assert.assertNull(inex);
     }
 }
