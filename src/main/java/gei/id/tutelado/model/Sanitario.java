@@ -27,4 +27,9 @@ public class Sanitario extends Usuario {
 		this.centro = centro;
 	}
 	
+	@Override
+	public boolean esSanitario() {
+		return true;
+	}
+	
 }

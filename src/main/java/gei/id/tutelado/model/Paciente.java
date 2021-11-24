@@ -51,4 +51,9 @@ public class Paciente extends Usuario {
 		prueba.setPaciente(null);
 	}
 	
+	@Override
+	public boolean esSanitario() {
+		return false;
+	}
+	
 }

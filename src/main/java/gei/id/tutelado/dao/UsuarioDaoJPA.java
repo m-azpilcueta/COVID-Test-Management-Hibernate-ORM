@@ -64,7 +64,14 @@ public class UsuarioDaoJPA implements UsuarioDao {
 			em = emf.createEntityManager();
 			em.getTransaction().begin();
 
+			int numPruebas;
 			Usuario usuarioTmp = em.find(Usuario.class, usuario.getId());
+			if (usuarioTmp.esSanitario()) {
+				numPruebas = em.createNamedQuery("Sanitario.recuperarNumPruebas", Integer.class).setParameter("dni", usuario.getDni()).getSingleResult();
+				if (numPruebas > 0) {
+					throw new RuntimeException("¡El sanitario ha realizado pruebas, no se puede eliminar!");
+				}
+			}
 			em.remove(usuarioTmp);
 
 			em.getTransaction().commit();

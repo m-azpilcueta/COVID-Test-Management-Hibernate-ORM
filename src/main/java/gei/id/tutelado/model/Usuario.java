@@ -8,6 +8,8 @@ import javax.persistence.*;
 @NamedQueries({
 	@NamedQuery(name = "Usuario.findByDni",
 			query = "SELECT u from Usuario u WHERE u.dni=:dni"),
+	@NamedQuery(name = "Sanitario.recuperarNumPruebas",
+	query = "SELECT count(*) FROM prueba p INNER JOIN p.sanitario s WHERE s.dni=:dni")
 })
 
 @TableGenerator(name="id_us_gen", table = "tabla_ids", pkColumnName = "nombre_id", pkColumnValue = "idUser", 
@@ -126,6 +128,8 @@ public abstract class Usuario {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
+	
+	public abstract boolean esSanitario();
 
 	@Override
 	public int hashCode() {
