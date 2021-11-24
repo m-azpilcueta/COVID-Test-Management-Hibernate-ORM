@@ -44,7 +44,7 @@ public class Prueba implements Comparable<Prueba> {
 	private String provincia;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "pac_prue", nullable = false, unique = false)
+	@JoinColumn(name = "pac_prue", nullable = true, unique = false)
 	private Paciente paciente;
 	
 	@ElementCollection(fetch = FetchType.LAZY)
