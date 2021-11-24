@@ -242,6 +242,51 @@ public class Test1_Usuarios {
     	usuDao.modifica(s);
     	sModif = (Sanitario) usuDao.recuperaPorDni(productorDatos.s0.getDni());
     	Assert.assertEquals(nombre, sModif.getNombre());
+    }
+    
+    @Test
+    public void t5_CRUD_TestExcepciones() {
+    	boolean excepcion;
+    	
+    	log.info("");
+        log.info("Configurando situación de partida do test ----------------------------------------------------------------------");
         
+        productorDatos.creaPacientesSueltos();
+        productorDatos.creaSanitariosSueltos();
+        
+        log.info("");	
+		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
+    	log.info("Obxectivo: Proba de violación de restricións not null e unique\n"   
+    			+ "\t\t\t\t Casos contemplados:\n"
+    			+ "\t\t\t\t a) Gravación de usuario con dni duplicado\n"
+    			+ "\t\t\t\t b) Gravación de usuario con dni nulo\n");
+
+    	usuDao.almacena(productorDatos.p0);
+    	
+    	// Situación de partida
+    	// p0 desligado, p1 transitorio
+    	
+    	log.info("Probando gravación de usuario con dni duplicado\n");
+    	
+    	productorDatos.p1.setDni(productorDatos.p0.getDni());
+    	try {
+    		usuDao.almacena(productorDatos.p1);
+    		excepcion = false;
+    	} catch (Exception ex) {
+    		excepcion = true;
+    		log.info(ex.getClass().getName());
+    	}
+    	Assert.assertTrue(excepcion);
+    	
+    	log.info("Probando gravación de usuario con dni nulo\n");
+    	productorDatos.p1.setDni(null);
+    	try {
+    		usuDao.almacena(productorDatos.p1);
+    		excepcion = false;
+    	} catch (Exception ex) {
+    		excepcion = true;
+    		log.info(ex.getClass().getName());
+    	}
+    	Assert.assertTrue(excepcion);
     }
 }
