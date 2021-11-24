@@ -78,6 +78,7 @@ public class ProductorDatosPrueba {
 		this.u2.setLocalidad("Vigo");
 		this.u2.setProvincia("Pontevedra");
 		this.u2.setTelefono("666888999");
+		this.u2.setCodSanitario("00000001");
 		this.u2.setCentro("Hospital Provincial de Pontevedra");
 
 		this.u3 = new Sanitario();
@@ -90,6 +91,7 @@ public class ProductorDatosPrueba {
 		this.u3.setLocalidad("Vilagarcia de Arousa");
 		this.u3.setProvincia("Pontevedra");
 		this.u3.setTelefono("647589345");
+		this.u3.setCodSanitario("00000002");
 		this.u3.setCentro("Hospital do Salnes");
 
 	}
@@ -170,8 +172,8 @@ public class ProductorDatosPrueba {
 			em.createQuery("DELETE FROM Sanitario").executeUpdate();
 			em.createQuery("DELETE FROM Paciente").executeUpdate();
 
-			em.createNativeQuery("UPDATE taboa_ids SET ultimo_valor_id=0 WHERE nombre_id='idUser'" ).executeUpdate();
-			em.createNativeQuery("UPDATE taboa_ids SET ultimo_valor_id=0 WHERE nombre_id='idPrueba'" ).executeUpdate();
+			em.createNativeQuery("UPDATE tabla_ids SET ultimo_valor_id=0 WHERE nombre_id='idUser'" ).executeUpdate();
+			em.createNativeQuery("UPDATE tabla_ids SET ultimo_valor_id=0 WHERE nombre_id='idPrueba'" ).executeUpdate();
 
 			em.getTransaction().commit();
 			em.close();

@@ -96,19 +96,19 @@ public class Test1_Usuarios {
 
         // Situación de partida:
         // u0 transitorio
-        Assert.assertNull(productorDatos.u0);
+        Assert.assertNull(productorDatos.u0.getId());
         usuDao.almacena(productorDatos.u0);
         Assert.assertNotNull(productorDatos.u0.getId());
 
-        Assert.assertNull(productorDatos.u1);
+        Assert.assertNull(productorDatos.u1.getId());
         usuDao.almacena(productorDatos.u1);
         Assert.assertNotNull(productorDatos.u1.getId());
 
-        Assert.assertNull(productorDatos.u2);
+        Assert.assertNull(productorDatos.u2.getId());
         usuDao.almacena(productorDatos.u2);
         Assert.assertNotNull(productorDatos.u2.getId());
 
-        Assert.assertNull(productorDatos.u3);
+        Assert.assertNull(productorDatos.u3.getId());
         usuDao.almacena(productorDatos.u3);
         Assert.assertNotNull(productorDatos.u3.getId());
     }
