@@ -9,11 +9,11 @@ import javax.persistence.*;
 @NamedQueries({
 	@NamedQuery(name = "Prueba.findByCodigo",
 			query = "SELECT p from Prueba p WHERE p.codPrueba=:codPrueba"),
-	@NamedQuery(name = "Prueba.numeroPositivosLocalidadSemana", 
-			query = "SELECT p.localidad, count(*) FROM Prueba p WHERE p.resultado IS TRUE AND p.fecha BETWEEN CURRENT_DATE AND CURRENT_DATE - 7"
+	@NamedQuery(name = "Prueba.numeroPositivosLocalidad", 
+			query = "SELECT p.localidad AS localidad, count(*) AS positivos FROM Prueba p WHERE p.resultado IS TRUE"
 					+ " GROUP BY p.localidad"),
 	@NamedQuery(name = "Prueba.localidadMasTests", 
-			query = "SELECT p.localidad, count(*) FROM Prueba p GROUP BY p.localidad "
+			query = "SELECT p.localidad AS localidad, count(*) AS tests FROM Prueba p GROUP BY p.localidad "
 					+ "HAVING count(*) >= ALL (SELECT count(*) FROM Prueba p2 GROUP BY p2.localidad)")
 })
 

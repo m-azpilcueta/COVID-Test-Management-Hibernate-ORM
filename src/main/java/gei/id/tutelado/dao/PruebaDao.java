@@ -1,5 +1,7 @@
 package gei.id.tutelado.dao;
 
+import java.util.Map;
+
 import gei.id.tutelado.configuracion.Configuracion;
 import gei.id.tutelado.model.Prueba;
 
@@ -17,4 +19,6 @@ void setup(Configuracion config);
 	Prueba restauraPaciente(Prueba prueba);
 	
 	// Operaciones Adicionales
+	Map<String, Integer> recuperaPositivosPorLocalidad(); // AGREGACION
+	Map<String, Integer> recuperaLocalidadMasTest(); // SUBCONSULTA
 }
