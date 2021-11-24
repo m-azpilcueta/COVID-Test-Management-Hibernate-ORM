@@ -18,8 +18,7 @@ public class Paciente extends Usuario {
 	@Column(nullable = false, unique = true, length = 12)
 	private String nss;
 	
-	// FALTA PONER EL FETCH
-	@OneToMany(mappedBy = "paciente", cascade = {CascadeType.REMOVE})
+	@OneToMany(mappedBy = "paciente", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	@OrderBy("fecha DESC")
 	private SortedSet<Prueba> pruebas = new TreeSet<Prueba>();
 

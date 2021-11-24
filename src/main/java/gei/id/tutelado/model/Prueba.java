@@ -43,18 +43,16 @@ public class Prueba implements Comparable<Prueba> {
 	@Column(nullable = false, unique = false)
 	private String provincia;
 	
-	// FALTA EL FETCH
-	@ManyToOne(cascade = {})
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "pac_prue", nullable = false, unique = false)
 	private Paciente paciente;
 	
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.LAZY)
 	@CollectionTable(name = "Sintomas", joinColumns=@JoinColumn(name = "id_prue", nullable = false))
 	@Column(name = "sintoma", nullable = false)
 	private Set<String> sintomas = new HashSet<String>();
 	
-	// FALTA EL FETCH
-	@ManyToOne(cascade = {})
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "sanit_prue", nullable = true, unique = false)
 	private Sanitario sanitario;
 	
