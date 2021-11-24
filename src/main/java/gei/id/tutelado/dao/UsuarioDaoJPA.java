@@ -130,4 +130,27 @@ public class UsuarioDaoJPA implements UsuarioDao {
 		return pacientes;
 	}
 	
+	@Override
+	public int recuperaNumPositivosNss(String nss) {
+		int positivos = 0;
+		
+		try {
+			em = emf.createEntityManager();
+			em.getTransaction().begin();
+			
+			positivos = em.createNamedQuery("Paciente.recuperarNumPositivosPorNss", Integer.class).setParameter("nss", nss).getSingleResult();
+			
+			em.getTransaction().commit();
+			em.close();
+		} catch(Exception ex) {
+			if (em!=null && em.isOpen()) {
+				if (em.getTransaction().isActive()) em.getTransaction().rollback();
+				em.close();
+				throw(ex);
+			}
+		}
+		
+		return positivos;
+	}
+	
 }

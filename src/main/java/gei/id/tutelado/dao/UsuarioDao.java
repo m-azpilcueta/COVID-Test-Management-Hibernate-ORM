@@ -17,4 +17,5 @@ public interface UsuarioDao {
 	
 	// Operaciones Adicionales
 	List<Paciente> recuperaPacientesSinPruebas(); // OUTER JOIN
+	int recuperaNumPositivosNss(String nss); // INNER JOIN
 }
