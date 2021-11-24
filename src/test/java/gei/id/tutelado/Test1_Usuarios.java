@@ -91,12 +91,16 @@ public class Test1_Usuarios {
         log.info("");
         log.info("Inicio do test --------------------------------------------------------------------------------------------------");
         log.info("Obxectivo: Proba de gravación na BD de novos usuarios (pacientes e sanitarios) (sen probas asignadas ós pacientes)\n");
+        
+        log.info("Probando creación de Paciente 0\n");
 
         // Situación de partida:
         // p0 transitorio
         Assert.assertNull(productorDatos.p0.getId());
         usuDao.almacena(productorDatos.p0);
         Assert.assertNotNull(productorDatos.p0.getId());
+        
+        log.info("Probando creación de Paciente 1\n");
 
         // Situación de partida:
         // p1 transitorio
@@ -104,11 +108,15 @@ public class Test1_Usuarios {
         usuDao.almacena(productorDatos.p1);
         Assert.assertNotNull(productorDatos.p1.getId());
         
+        log.info("Probando creación de Sanitario 0\n");
+        
         // Situación de partida:
         // s0 transitorio
         Assert.assertNull(productorDatos.s0.getId());
         usuDao.almacena(productorDatos.s0);
         Assert.assertNotNull(productorDatos.s0.getId());
+        
+        log.info("Probando creación de Sanitario 1\n");
 
         // Situación de partida:
         // s1 transitorio
@@ -141,7 +149,7 @@ public class Test1_Usuarios {
     			+ "\t\t\t\t b) Recuperacion por dni inexistente\n");
     	
     	
-    	log.info("Probando Dni existente (Paciente) --------------------------------------------------------------------------------------------------");
+    	log.info("Probando Dni existente (Paciente)\n");
     	
     	// Situación de partida:
     	// p0 desligado
@@ -150,7 +158,7 @@ public class Test1_Usuarios {
     	Assert.assertEquals(productorDatos.p0.getNombre(),     p.getNombre());
     	Assert.assertEquals(productorDatos.p0.getFechaNac(), p.getFechaNac());
     	
-    	log.info("Probando Dni existente (Sanitario) --------------------------------------------------------------------------------------------------");
+    	log.info("Probando Dni existente (Sanitario)\n");
 
     	// Situación de partida:
     	// s0 desligado
@@ -159,8 +167,81 @@ public class Test1_Usuarios {
     	Assert.assertEquals(productorDatos.s0.getNombre(),     s.getNombre());
     	Assert.assertEquals(productorDatos.s0.getFechaNac(), s.getFechaNac());
 
-    	log.info("Probando Dni inexistente --------------------------------------------------------------------------------------------------");
+    	log.info("Probando Dni inexistente\n");
     	inex = (Paciente) usuDao.recuperaPorDni("noexiste");
     	Assert.assertNull(inex);
+    }
+    
+    @Test
+    public void t3_CRUD_TestElimina() {
+    	log.info("");
+        log.info("Configurando situación de partida do test ----------------------------------------------------------------------");
+        
+        productorDatos.creaPacientesSueltos();
+        productorDatos.creaSanitariosSueltos();
+        productorDatos.registraUsuarios();
+        
+        log.info("");	
+		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
+    	log.info("Obxectivo: Proba de eliminación da BD de pacientes e sanitarios sen probas asociadas\n"); 
+    	
+    	log.info("Probando Borrado Paciente\n");
+    	
+    	// Situación de partida
+    	// p0 desligado
+    	Assert.assertNotNull(usuDao.recuperaPorDni(productorDatos.p0.getDni()));
+    	usuDao.elimina(productorDatos.p0);
+    	Assert.assertNull(usuDao.recuperaPorDni(productorDatos.p0.getDni()));
+    	
+    	log.info("Probando Borrado Sanitario\n");
+    	
+    	// Situación de partida
+    	// s0 desligado
+    	Assert.assertNotNull(usuDao.recuperaPorDni(productorDatos.s0.getDni()));
+    	usuDao.elimina(productorDatos.s0);
+    	Assert.assertNull(usuDao.recuperaPorDni(productorDatos.s0.getDni()));
+
+    }
+    
+    @Test
+    public void t4_CRUD_TestModifica() {
+    	String nombre = "Nuevo";
+    	Sanitario s, sModif;
+    	Paciente p, pModif;
+    	
+    	log.info("");
+        log.info("Configurando situación de partida do test ----------------------------------------------------------------------");
+        
+        productorDatos.creaPacientesSueltos();
+        productorDatos.creaSanitariosSueltos();
+        productorDatos.registraUsuarios();
+        
+        log.info("");	
+		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
+    	log.info("Obxectivo: Proba de modificación da información básica dun paciente e dun sanitario sen pruebas\n");
+    	
+    	
+    	log.info("Probando modificación de Paciente 0\n");
+    	
+    	// Situación de partida
+    	// p0 desligado
+    	p = (Paciente) usuDao.recuperaPorDni(productorDatos.p0.getDni());
+    	Assert.assertNotEquals(nombre, p.getNombre());
+    	p.setNombre(nombre);
+    	usuDao.modifica(p);
+    	pModif = (Paciente) usuDao.recuperaPorDni(productorDatos.p0.getDni());
+    	Assert.assertEquals(nombre, pModif.getNombre());
+    	
+    	log.info("Probando modificación de Sanitario 0\n");
+    	
+    	// Situación de partida
+    	// s0 desligado
+    	s = (Sanitario) usuDao.recuperaPorDni(productorDatos.s0.getDni());
+    	Assert.assertNotEquals(nombre, s.getNombre());
+    	s.setNombre(nombre);
+    	usuDao.modifica(s);
+    	sModif = (Sanitario) usuDao.recuperaPorDni(productorDatos.s0.getDni());
+    	Assert.assertEquals(nombre, sModif.getNombre());
+        
     }
 }
