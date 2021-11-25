@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -22,11 +24,12 @@ public class ProductorDatosPrueba {
 
 	public Paciente p0, p1;
 	public Sanitario s0, s1;
-	public Prueba pru0, pru1;
+	public Prueba pru0, pru1, pru2;
 	
 	public List<Paciente> lP;
 	public List<Sanitario> lS;
 	public List<Prueba> lPru;
+	public Set<String> sintomas;
 
 	public void Setup (Configuracion config) {
 		this.emf=(EntityManagerFactory) config.get("EMF");
@@ -102,8 +105,9 @@ public class ProductorDatosPrueba {
 	}
 	
 	public void creaPruebasSueltas () {
-		// Crea pruebas EN MEMORIA: pru0, pru1
+		// Crea probas EN MEMORIA: pru0, pru1, pru2
 
+		this.pru0 = new Prueba();
 		this.pru0.setCodPrueba("0001");
 		this.pru0.setTipo("PCR");
 		this.pru0.setFecha(LocalDateTime.of(2021, 12, 9, 17, 30));
@@ -111,6 +115,7 @@ public class ProductorDatosPrueba {
 		this.pru0.setLocalidad("Vilagarcia de Arousa");
 		this.pru0.setProvincia("Pontevedra");
 
+		this.pru1 = new Prueba();
 		this.pru1.setCodPrueba("0002");
 		this.pru1.setTipo("PCR");
 		this.pru1.setFecha(LocalDateTime.of(2021, 12, 6, 12, 15));
@@ -118,20 +123,53 @@ public class ProductorDatosPrueba {
 		this.pru1.setLocalidad("A Coruña");
 		this.pru1.setProvincia("A Coruña");
 		
+		this.pru2 = new Prueba();
+		this.pru2.setCodPrueba("0003");
+		this.pru2.setTipo("Antígenos");
+		this.pru2.setFecha(LocalDateTime.of(2021, 12, 6, 12, 30));
+		this.pru2.setLugar("Coliseum");
+		this.pru2.setLocalidad("A Coruña");
+		this.pru2.setProvincia("A Coruña");
+		
 		this.lPru = new ArrayList<Prueba>();
 		this.lPru.add(pru0);
 		this.lPru.add(pru1);
+		this.lPru.add(pru2);
 	}
 
 	public void creaPacienteConPruebas(){
 
 		this.creaPacientesSueltos();
 		this.creaPruebasSueltas();
-		this.creaSanitariosSueltos();
 
 		this.p0.addPrueba(this.pru0);
 		this.p1.addPrueba(this.pru1);
+		this.p0.addPrueba(this.pru2);
 
+	}
+	
+	public void creaPacienteConPruebasCompletas() {
+		
+		this.sintomas = new HashSet<String>();
+		sintomas.add("Tos");
+		sintomas.add("Pérdida de olfato");
+		
+		this.creaPacienteConPruebas();
+		
+		this.pru0.setAsistencia(true);
+		this.pru0.setResultado(true);
+		this.pru0.setSanitario(this.s0);
+		this.pru0.setSintomas(sintomas);
+		
+		this.pru1.setAsistencia(true);
+		this.pru1.setResultado(false);
+		this.pru1.setSanitario(this.s1);
+		this.pru1.setSintomas(sintomas);
+		
+		this.pru2.setAsistencia(true);
+		this.pru2.setResultado(true);
+		this.pru2.setSanitario(this.s0);
+		this.pru2.setSintomas(sintomas);
 	}
 
 	public void registraUsuarios() {
@@ -140,22 +178,27 @@ public class ProductorDatosPrueba {
 		try {
 			em = emf.createEntityManager();
 			em.getTransaction().begin();
-			Iterator<Paciente> itP = this.lP.iterator();
+			
+			if (this.lP != null) {
+				Iterator<Paciente> itP = this.lP.iterator();
 
-			while (itP.hasNext()) {
-				Paciente p = itP.next();
-				em.persist(p);
-				Iterator<Prueba> itPR = p.getPruebas().iterator();
-				while (itPR.hasNext()) {
-					em.persist(itPR.next());
+				while (itP.hasNext()) {
+					Paciente p = itP.next();
+					em.persist(p);
+					Iterator<Prueba> itPR = p.getPruebas().iterator();
+					while (itPR.hasNext()) {
+						em.persist(itPR.next());
+					}
 				}
 			}
+			
+			if (this.lS != null) {
+				Iterator<Sanitario> itS = this.lS.iterator();
 
-			Iterator<Sanitario> itS = this.lS.iterator();
-
-			while (itS.hasNext()) {
-				Sanitario s = itS.next();
-				em.persist(s);
+				while (itS.hasNext()) {
+					Sanitario s = itS.next();
+					em.persist(s);
+				}
 			}
 
 			em.getTransaction().commit();
@@ -172,23 +215,22 @@ public class ProductorDatosPrueba {
 	}
 	public void limpiaBD () {
 		EntityManager em=null;
-		List<Prueba> pruebas = null;
+		List<Paciente> pacientes = null;
 
 		try {
 			em = emf.createEntityManager();
 			em.getTransaction().begin();
 
-			pruebas = em.createQuery("from Prueba", Prueba.class).getResultList();
-			if (pruebas.size() > 0) {
-				Iterator<Prueba> itP = pruebas.iterator();
-				Prueba p = itP.next();
-				p.getSintomas().clear();
-				em.remove(p);
-			}
-			else em.createQuery("DELETE FROM Prueba").executeUpdate();
+			pacientes = em.createQuery("from Paciente", Paciente.class).getResultList();
+			if (pacientes.size() > 0) {
+				Iterator<Paciente> itPac = pacientes.iterator();
+				while(itPac.hasNext()) {
+					Paciente pac = itPac.next();
+					em.remove(pac);
+				}
+			} else em.createQuery("DELETE FROM Paciente").executeUpdate();
+			em.createQuery("DELETE FROM Prueba").executeUpdate();
 			em.createQuery("DELETE FROM Sanitario").executeUpdate();
-			em.createQuery("DELETE FROM Paciente").executeUpdate();
-
 			em.createNativeQuery("UPDATE tabla_ids SET ultimo_valor_id=0 WHERE nombre_id='idUser'" ).executeUpdate();
 			em.createNativeQuery("UPDATE tabla_ids SET ultimo_valor_id=0 WHERE nombre_id='idPrueba'" ).executeUpdate();
 
