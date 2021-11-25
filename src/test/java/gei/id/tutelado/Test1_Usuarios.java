@@ -252,7 +252,6 @@ public class Test1_Usuarios {
         log.info("Configurando situación de partida do test ----------------------------------------------------------------------");
         
         productorDatos.creaPacientesSueltos();
-        productorDatos.creaSanitariosSueltos();
         
         log.info("");	
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");

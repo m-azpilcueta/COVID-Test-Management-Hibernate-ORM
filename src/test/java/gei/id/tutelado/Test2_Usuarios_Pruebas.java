@@ -1,5 +1,6 @@
 package gei.id.tutelado;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -306,6 +307,108 @@ public class Test2_Usuarios_Pruebas {
     	Assert.assertNull(usuDao.recuperaPorDni(productorDatos.p0.getDni()));
     	Assert.assertNull(pruebaDao.recuperaPorCod(productorDatos.pru0.getCodPrueba()));
     	Assert.assertNull(pruebaDao.recuperaPorCod(productorDatos.pru2.getCodPrueba()));
+    }
+    
+    @Test
+    public void t5_CRUD_TestExcepciones() {
+    	boolean excepcion;
+    	
+    	log.info("");	
+		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
+
+		log.info("");	
+		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
+    	log.info("Obxectivo: Proba de violacion de restricions not null e unique\n"   
+    			+ "\t\t\t\t Casos contemplados:\n"
+    			+ "\t\t\t\t a) Gravación de proba con código nulo\n"
+    			+ "\t\t\t\t b) Gravación de proba con código duplicado\n");
+
+    	productorDatos.creaPacientesSueltos();
+    	productorDatos.registraUsuarios();
+    	productorDatos.creaPruebasSueltas();
+    	
+    	// Situación de partida
+    	// p0 desligado, pru0 transitorio
+    	
+    	productorDatos.pru0.setCodPrueba(null);
+    	productorDatos.p0.addPrueba(productorDatos.pru0);
+    	
+    	log.info("");
+    	log.info("Probando gravación con código nulo\n");
+    	
+    	try {
+    		pruebaDao.almacena(productorDatos.pru0);
+    		excepcion = false;
+    	} catch(Exception ex) {
+    		excepcion = true;
+    		log.info(ex.getClass().getName());
+    	}
+    	Assert.assertTrue(excepcion);
+    	
+    	log.info("");
+    	log.info("Probando gravación con código duplicado\n");
+    	
+    	productorDatos.p1.addPrueba(productorDatos.pru2);
+    	pruebaDao.almacena(productorDatos.pru2);
+    	
+    	productorDatos.pru1.setCodPrueba(productorDatos.pru2.getCodPrueba());
+    	productorDatos.p1.addPrueba(productorDatos.pru1);
+    	
+    	try {
+    		pruebaDao.almacena(productorDatos.pru1);
+    		excepcion = false;
+    	} catch(Exception ex) {
+    		excepcion = true;
+    		log.info(ex.getClass().getName());
+    	}
+    	Assert.assertTrue(excepcion);
+    }
+    
+    @Test
+    public void t5b_CRUD_TestExcepciones() {
+    	boolean excepcion;
+    	
+    	log.info("");	
+		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
+
+		log.info("");	
+		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
+    	log.info("Obxectivo: Proba de violacion de restricions not null e unique\n"   
+    			+ "\t\t\t\t Casos contemplados:\n"
+    			+ "\t\t\t\t a) Borrado de probas que xa tiveron lugar\n"
+    			+ "\t\t\t\t b) Borrado de sanitario que fixo probas\n");
+    	
+    	productorDatos.creaSanitariosSueltos();
+    	productorDatos.creaPacienteConPruebasCompletas();
+    	productorDatos.pru0.setFecha(LocalDateTime.of(2021, 11, 20, 13, 45));
+    	productorDatos.registraUsuarios();
+    	
+    	// Situación de partida
+    	// p0, pru0, pru2  desligado
+    	
+    	log.info("");
+    	log.info("Probando borrado de probas que xa tiveron lugar");
+    	
+    	try {
+    		pruebaDao.elimina(productorDatos.pru0);
+    		excepcion = false;
+    	} catch (Exception ex) {
+    		excepcion = true;
+    		log.info(ex.getMessage());
+    	}
+    	Assert.assertTrue(excepcion);
+    	
+    	log.info("");
+    	log.info("Probando borrado de sanitario que fixo probas");
+    	
+    	try {
+    		usuDao.elimina(productorDatos.s0);
+    		excepcion = false;
+    	} catch (Exception ex) {
+    		excepcion = true;
+    		log.info(ex.getMessage());
+    	}
+    	Assert.assertTrue(excepcion);
     }
     
 }

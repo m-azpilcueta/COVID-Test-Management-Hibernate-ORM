@@ -191,7 +191,6 @@ public class ProductorDatosPrueba {
 					}
 				}
 			}
-			
 			if (this.lS != null) {
 				Iterator<Sanitario> itS = this.lS.iterator();
 
