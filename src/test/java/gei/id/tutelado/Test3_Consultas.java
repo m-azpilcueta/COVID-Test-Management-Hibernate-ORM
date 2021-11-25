@@ -1,7 +1,9 @@
 package gei.id.tutelado;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -108,7 +110,7 @@ public class Test3_Consultas {
     	Assert.assertEquals(true, queryResult.contains(productorDatos.pru2));
     }
     
-    
+    @Test
     public void t2_CRUD_RecuperarPacienteSinPruebas() {
     	log.info("");	
 		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
@@ -137,29 +139,48 @@ public class Test3_Consultas {
     	Assert.assertEquals(true, queryResult2.contains(productorDatos.pru2));
     }
     
-    
+    @Test
     public void t3_CRUD_NumeroPositivosLocalidad() {
     	log.info("");	
 		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
 		
+		productorDatos.creaSanitariosSueltos();
+		productorDatos.creaPacienteConPruebasCompletas();
+		productorDatos.registraUsuarios();
 		
 		log.info("");	
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
     	log.info("Obxectivo: Proba da consulta Prueba.numeroPositivosLocalidad\n");
     	
+    	// Situación de partida
+    	// p0, p1, pSinPruebas, s0, s1, pru0, pru1, pru2 desligados
     	
+    	Map<String, Integer> queryResult = new HashMap<String, Integer>();
+    	queryResult = pruebaDao.recuperaPositivosPorLocalidad();
+    	Assert.assertEquals(2, queryResult.size());
+    	Assert.assertEquals(1, queryResult.get("A Coruña").intValue());
+    	Assert.assertEquals(1, queryResult.get("Vilagarcia de Arousa").intValue());
     }
     
-    
+    @Test
     public void t4_CRUD_localidadMasTests() {
     	log.info("");	
 		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
 		
+		productorDatos.creaSanitariosSueltos();
+		productorDatos.creaPacienteConPruebasCompletas();
+		productorDatos.registraUsuarios();
 		
 		log.info("");	
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
     	log.info("Obxectivo: Proba da consulta Prueba.localidadMasTests\n");
     	
+    	// Situación de partida
+    	// p0, p1, pSinPruebas, s0, s1, pru0, pru1, pru2 desligados
     	
+    	Map<String, Integer> queryResult = new HashMap<String, Integer>();
+    	queryResult = pruebaDao.recuperaLocalidadMasTest();
+    	Assert.assertEquals(1, queryResult.size());
+    	Assert.assertEquals(2, queryResult.get("A Coruña").intValue());
     }
 }
