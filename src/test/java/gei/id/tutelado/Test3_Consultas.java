@@ -24,6 +24,7 @@ import gei.id.tutelado.dao.PruebaDao;
 import gei.id.tutelado.dao.PruebaDaoJPA;
 import gei.id.tutelado.dao.UsuarioDao;
 import gei.id.tutelado.dao.UsuarioDaoJPA;
+import gei.id.tutelado.model.Paciente;
 import gei.id.tutelado.model.Prueba;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -97,17 +98,14 @@ public class Test3_Consultas {
     	log.info("Obxectivo: Proba da consulta Paciente.recuperarPruebasPacientePorNss\n");
     	
     	// Situación de partida
-    	// p0, p1, s0, s1, pru0, pru1, pru2 desligados
+    	// p0, pru0, pru2 desligados
     	
-    	List<Prueba> pruebasp0 = new ArrayList<Prueba>();
     	List<Prueba> queryResult = new ArrayList<Prueba>();
-    	pruebasp0.add(productorDatos.pru0);
-    	pruebasp0.add(productorDatos.pru2);
     	
     	queryResult = usuDao.recuperaPruebasPacientePorNss(productorDatos.p0.getNss());
-    	Assert.assertEquals(pruebasp0.size(), queryResult.size());
-    	Assert.assertEquals(pruebasp0.contains(productorDatos.pru0), queryResult.contains(productorDatos.pru0));
-    	Assert.assertEquals(pruebasp0.contains(productorDatos.pru2), queryResult.contains(productorDatos.pru2));
+    	Assert.assertEquals(2, queryResult.size());
+    	Assert.assertEquals(true, queryResult.contains(productorDatos.pru0));
+    	Assert.assertEquals(true, queryResult.contains(productorDatos.pru2));
     }
     
     
@@ -115,12 +113,28 @@ public class Test3_Consultas {
     	log.info("");	
 		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
 		
+		productorDatos.creaSanitariosSueltos();
+    	productorDatos.creaPacienteConPruebasCompletas();
+    	productorDatos.registraUsuarios();
 		
 		log.info("");	
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
     	log.info("Obxectivo: Proba da consulta Paciente.recuperarPacienteSinPruebas\n");
     	
+    	// Situación de partida
+    	// pSinPruebas desligado
     	
+    	List<Paciente> queryResult = new ArrayList<>();
+    	queryResult = usuDao.recuperaPacientesSinPruebas();
+    	
+    	Assert.assertEquals(1, queryResult.size());
+    	Assert.assertEquals(true, queryResult.contains(productorDatos.pSinPruebas));
+    	
+    	// Comprobamos tamén que hai pacientes con probas asignadas
+    	List<Prueba> queryResult2 = usuDao.recuperaPruebasPacientePorNss(productorDatos.p0.getNss());
+    	Assert.assertEquals(2, queryResult2.size());
+    	Assert.assertEquals(true, queryResult2.contains(productorDatos.pru0));
+    	Assert.assertEquals(true, queryResult2.contains(productorDatos.pru2));
     }
     
     

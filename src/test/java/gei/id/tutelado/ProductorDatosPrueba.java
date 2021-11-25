@@ -22,7 +22,7 @@ public class ProductorDatosPrueba {
 	
 	private EntityManagerFactory emf=null;
 
-	public Paciente p0, p1;
+	public Paciente p0, p1, pSinPruebas;
 	public Sanitario s0, s1;
 	public Prueba pru0, pru1, pru2;
 	
@@ -64,9 +64,22 @@ public class ProductorDatosPrueba {
 		this.p1.setTelefono("654564333");
 		this.p1.setNss("0987654321");
 		
+		this.pSinPruebas = new Paciente();
+		this.pSinPruebas.setNombre("Alberto");
+		this.pSinPruebas.setApellidos("Sin Pruebas");
+		this.pSinPruebas.setFechaNac(LocalDate.of(1998,5,10));
+		this.pSinPruebas.setDni("0000000SP");
+		this.pSinPruebas.setSexo('H');
+		this.pSinPruebas.setCalle("Maestro Mateo");
+		this.pSinPruebas.setLocalidad("A Coruña");
+		this.pSinPruebas.setProvincia("A Coruña");
+		this.pSinPruebas.setTelefono("654564999");
+		this.pSinPruebas.setNss("0487614321");
+		
 		this.lP = new ArrayList<Paciente>();
 		this.lP.add(p0);
 		this.lP.add(p1);
+		this.lP.add(pSinPruebas);
 	}
 
 	public void creaSanitariosSueltos() {
