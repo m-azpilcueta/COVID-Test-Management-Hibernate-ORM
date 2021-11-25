@@ -7,6 +7,7 @@ import javax.persistence.EntityManagerFactory;
 
 import gei.id.tutelado.configuracion.Configuracion;
 import gei.id.tutelado.model.Paciente;
+import gei.id.tutelado.model.Prueba;
 import gei.id.tutelado.model.Usuario;
 
 public class UsuarioDaoJPA implements UsuarioDao {
@@ -131,14 +132,14 @@ public class UsuarioDaoJPA implements UsuarioDao {
 	}
 	
 	@Override
-	public int recuperaNumPositivosNss(String nss) {
-		int positivos = 0;
+	public List<Prueba> recuperaPruebasPacientePorNss(String nss) {
+		List<Prueba> pruebas = null;
 		
 		try {
 			em = emf.createEntityManager();
 			em.getTransaction().begin();
 			
-			positivos = em.createNamedQuery("Paciente.recuperarNumPositivosPorNss", Integer.class).setParameter("nss", nss).getSingleResult();
+			pruebas = em.createNamedQuery("Paciente.recuperarPruebasPacientePorNss", Prueba.class).setParameter("nss", nss).getResultList();
 			
 			em.getTransaction().commit();
 			em.close();
@@ -150,7 +151,7 @@ public class UsuarioDaoJPA implements UsuarioDao {
 			}
 		}
 		
-		return positivos;
+		return pruebas;
 	}
 	
 }

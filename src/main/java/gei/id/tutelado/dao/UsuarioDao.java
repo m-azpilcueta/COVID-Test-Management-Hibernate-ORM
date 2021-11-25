@@ -4,6 +4,7 @@ import java.util.List;
 
 import gei.id.tutelado.configuracion.Configuracion;
 import gei.id.tutelado.model.Paciente;
+import gei.id.tutelado.model.Prueba;
 import gei.id.tutelado.model.Usuario;
 
 public interface UsuarioDao {
@@ -17,5 +18,5 @@ public interface UsuarioDao {
 	
 	// Operaciones Adicionales
 	List<Paciente> recuperaPacientesSinPruebas(); // OUTER JOIN
-	int recuperaNumPositivosNss(String nss); // INNER JOIN
+	List<Prueba> recuperaPruebasPacientePorNss(String nss); // INNER JOIN
 }
