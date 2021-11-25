@@ -173,7 +173,8 @@ public class Test2_Usuarios_Pruebas {
 		+ "\t\t\t\t c) Recuperación de proba con carga LAZY de paciente\n"
 		+ "\t\t\t\t d) Carga forzada de paciente LAZY da dita proba\n"
 		+ "\t\t\t\t e) Recuperacion de proba con referencia EAGER a sanitario\n"
-		+ "\t\t\t\t f) Recuperacion de paciente con referencia EAGER á colección de probas\n");
+		+ "\t\t\t\t f) Recuperacion de paciente con referencia EAGER á colección de probas\n"
+		+ "\t\t\t\t g) Recuperacion de proba con código inexistente\n");
     	
     	// Situación de partida
     	// pr0 desligado
@@ -232,6 +233,10 @@ public class Test2_Usuarios_Pruebas {
     	log.info("");
     	log.info("Probando encadeamento de EAGER dende paciente a sanitario da proba dun paciente\n");
     	Assert.assertEquals(productorDatos.p0.getPruebas().first().getSanitario(), pac.getPruebas().first().getSanitario());
+    	
+    	log.info("");
+    	log.info("Recuperando proba con código inexistente\n");
+    	Assert.assertNull(pruebaDao.recuperaPorCod("noexiste"));
     }
     
     @Test

@@ -28,7 +28,7 @@
 	            <property name="hibernate.connection.username" value="hib" />
 	            <property name="hibernate.connection.password" value="hib123" />
 	            <property name="hibernate.show_sql" value="false" />
-	            <property name="hibernate.format_sql" value="true" />
+	            <property name="hibernate.format_sql" value="false" />
 	            <property name="hibernate.hbm2ddl.auto" value="create" />
 	            	<!--  
 						Valores para hbm2ddl.auto

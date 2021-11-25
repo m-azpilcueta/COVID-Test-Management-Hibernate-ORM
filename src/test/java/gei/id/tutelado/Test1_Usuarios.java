@@ -205,7 +205,8 @@ public class Test1_Usuarios {
     
     @Test
     public void t4_CRUD_TestModifica() {
-    	String nombre = "Nuevo";
+    	String calle = "Nuevo";
+    	String centro = "Nuevo Centro";
     	Sanitario s, sModif;
     	Paciente p, pModif;
     	
@@ -226,22 +227,22 @@ public class Test1_Usuarios {
     	// Situación de partida
     	// p0 desligado
     	p = (Paciente) usuDao.recuperaPorDni(productorDatos.p0.getDni());
-    	Assert.assertNotEquals(nombre, p.getNombre());
-    	p.setNombre(nombre);
+    	Assert.assertNotEquals(calle, p.getCalle());
+    	p.setCalle(calle);
     	usuDao.modifica(p);
     	pModif = (Paciente) usuDao.recuperaPorDni(productorDatos.p0.getDni());
-    	Assert.assertEquals(nombre, pModif.getNombre());
+    	Assert.assertEquals(calle, pModif.getCalle());
     	
     	log.info("Probando modificación de Sanitario 0\n");
     	
     	// Situación de partida
     	// s0 desligado
     	s = (Sanitario) usuDao.recuperaPorDni(productorDatos.s0.getDni());
-    	Assert.assertNotEquals(nombre, s.getNombre());
-    	s.setNombre(nombre);
+    	Assert.assertNotEquals(centro, s.getCentro());
+    	s.setCentro(centro);
     	usuDao.modifica(s);
     	sModif = (Sanitario) usuDao.recuperaPorDni(productorDatos.s0.getDni());
-    	Assert.assertEquals(nombre, sModif.getNombre());
+    	Assert.assertEquals(centro, sModif.getCentro());
     }
     
     @Test
