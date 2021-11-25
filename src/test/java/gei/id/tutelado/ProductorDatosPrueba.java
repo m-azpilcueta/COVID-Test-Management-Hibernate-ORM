@@ -37,8 +37,6 @@ public class ProductorDatosPrueba {
 	
 	public void creaPacientesSueltos() {
 		
-		// Crea dous pacientes EN MEMORIA: p0, p1
-		// SEN entradas de log
 		
 		this.p0 = new Paciente();
         this.p0.setNombre("Juan");
@@ -83,8 +81,7 @@ public class ProductorDatosPrueba {
 	}
 
 	public void creaSanitariosSueltos() {
-		// Crea dous sanitarios EN MEMORIA: s0, s1
-		// SEN entradas de log
+		
 
 		this.s0 = new Sanitario();
 		this.s0.setNombre("Bruno");
@@ -118,7 +115,7 @@ public class ProductorDatosPrueba {
 	}
 	
 	public void creaPruebasSueltas () {
-		// Crea probas EN MEMORIA: pru0, pru1, pru2
+		
 
 		this.pru0 = new Prueba();
 		this.pru0.setCodPrueba("0001");
@@ -183,6 +180,7 @@ public class ProductorDatosPrueba {
 		this.pru2.setResultado(true);
 		this.pru2.setSanitario(this.s0);
 		this.pru2.setSintomas(sintomas);
+		
 	}
 
 	public void registraUsuarios() {
@@ -222,6 +220,9 @@ public class ProductorDatosPrueba {
 				em.close();
 				throw (e);
 			}
+		} finally {
+			if (this.lP != null) this.lP.clear();
+			if (this.lS != null) this.lS.clear();
 		}
 
 	}

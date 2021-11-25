@@ -83,9 +83,9 @@ public class Test1_Usuarios {
         log.info("");
         log.info("Configurando situación de partida do test ----------------------------------------------------------------------");
 
-        //CREA p1, p2
+        // Crea p0, p1, pSinPruebas
         productorDatos.creaPacientesSueltos();
-        //CREA s1, s2
+        // Crea s0, s1
         productorDatos.creaSanitariosSueltos();
 
         log.info("");
@@ -134,11 +134,11 @@ public class Test1_Usuarios {
     	log.info("");
         log.info("Configurando situación de partida do test ----------------------------------------------------------------------");
         
-        //CREA p1, p2
+        // Crea p0, p1, pSinPruebas
         productorDatos.creaPacientesSueltos();
-        //CREA s1, s2
+        // Crea s0, s1
         productorDatos.creaSanitariosSueltos();
-        
+        // Rexistra creacións na bd
         productorDatos.registraUsuarios();
         
         log.info("");	
@@ -177,8 +177,11 @@ public class Test1_Usuarios {
     	log.info("");
         log.info("Configurando situación de partida do test ----------------------------------------------------------------------");
         
+        // Crea p0, p1, pSinPruebas
         productorDatos.creaPacientesSueltos();
+        // Crea s0, s1
         productorDatos.creaSanitariosSueltos();
+        // Rexistra creacións na bd
         productorDatos.registraUsuarios();
         
         log.info("");	
@@ -213,13 +216,16 @@ public class Test1_Usuarios {
     	log.info("");
         log.info("Configurando situación de partida do test ----------------------------------------------------------------------");
         
+        // Crea p0, p1, pSinPruebas
         productorDatos.creaPacientesSueltos();
+        // Crea s0, s1
         productorDatos.creaSanitariosSueltos();
+        // Rexistra creacións na bd
         productorDatos.registraUsuarios();
         
         log.info("");	
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
-    	log.info("Obxectivo: Proba de modificación da información básica dun paciente e dun sanitario sen pruebas\n");
+    	log.info("Obxectivo: Proba de modificación da información básica dun paciente e dun sanitario sen probas\n");
     	
     	
     	log.info("Probando modificación de Paciente 0\n");
@@ -252,6 +258,7 @@ public class Test1_Usuarios {
     	log.info("");
         log.info("Configurando situación de partida do test ----------------------------------------------------------------------");
         
+        // Crea p0, p1, pSinPruebas
         productorDatos.creaPacientesSueltos();
         
         log.info("");	

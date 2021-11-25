@@ -91,8 +91,11 @@ public class Test3_Consultas {
     	log.info("");	
 		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
 		
+		// Crea s0, s1
 		productorDatos.creaSanitariosSueltos();
+		// Crea p0, p1, pSinPruebas, pru0, pru1, pru2
 		productorDatos.creaPacienteConPruebasCompletas();
+		// Rexistra creacións na bd
 		productorDatos.registraUsuarios();
 		
 		log.info("");	
@@ -115,8 +118,11 @@ public class Test3_Consultas {
     	log.info("");	
 		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
 		
+		// Crea s0, s1
 		productorDatos.creaSanitariosSueltos();
+		// Crea p0, p1, pSinPruebas, pru0, pru1, pru2
     	productorDatos.creaPacienteConPruebasCompletas();
+    	// Rexistra creacións na bd
     	productorDatos.registraUsuarios();
 		
 		log.info("");	
@@ -144,8 +150,11 @@ public class Test3_Consultas {
     	log.info("");	
 		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
 		
+		// Crea s0, s1
 		productorDatos.creaSanitariosSueltos();
+		// Crea p0, p1, pSinPruebas, pru0, pru1, pru2
 		productorDatos.creaPacienteConPruebasCompletas();
+		// Rexistra creacións na bd
 		productorDatos.registraUsuarios();
 		
 		log.info("");	
@@ -167,8 +176,11 @@ public class Test3_Consultas {
     	log.info("");	
 		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
 		
+		// Crea s0, s1
 		productorDatos.creaSanitariosSueltos();
+		// Crea p0, p1, pSinPruebas, pru0, pru1, pru2
 		productorDatos.creaPacienteConPruebasCompletas();
+		// Rexistra creacións na bd
 		productorDatos.registraUsuarios();
 		
 		log.info("");	

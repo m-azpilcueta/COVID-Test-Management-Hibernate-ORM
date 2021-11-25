@@ -91,8 +91,11 @@ public class Test2_Usuarios_Pruebas {
     	log.info("");	
 		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
 		
+		// Crea p0, p1, pSinPruebas
 		productorDatos.creaPacientesSueltos();
+		// Rexistro creacións na bd
 		productorDatos.registraUsuarios();
+		// Crea pru0, pru1, pru2
 		productorDatos.creaPruebasSueltas();
 		
 		log.info("");	
@@ -103,7 +106,7 @@ public class Test2_Usuarios_Pruebas {
     			+ "\t\t\t\t b) Nova proba para un paciente con probas previas\n"); 
     	
     	// Situación de partida
-    	// p0 desligado, pru1 e pru2 transitorios
+    	// p0 desligado, pru0 e pru1 transitorios
     	productorDatos.p0.addPrueba(productorDatos.pru0);
     	log.info("");	
 		log.info("Gravando primeira proba dun paciente\n");
@@ -128,7 +131,9 @@ public class Test2_Usuarios_Pruebas {
     	log.info("");	
 		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
 		
+		// Crea p0, p1, pSinPruebas, pru0, pru1, pru2
 		productorDatos.creaPacienteConPruebas();
+		// Rexistra creacións na bd
 		productorDatos.registraUsuarios();
 		
 		log.info("");	
@@ -162,7 +167,11 @@ public class Test2_Usuarios_Pruebas {
     	log.info("");	
 		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
 		
+		// Crea s0, s1
+		productorDatos.creaSanitariosSueltos();
+		// Crea p0, p1, pSinpruebas, pru0, pru1, pru2
 		productorDatos.creaPacienteConPruebasCompletas();
+		// Rexistra creacións na bd
 		productorDatos.registraUsuarios();
 		
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
@@ -174,7 +183,7 @@ public class Test2_Usuarios_Pruebas {
 		+ "\t\t\t\t d) Carga forzada de paciente LAZY da dita proba\n"
 		+ "\t\t\t\t e) Recuperacion de proba con referencia EAGER a sanitario\n"
 		+ "\t\t\t\t f) Recuperacion de paciente con referencia EAGER á colección de probas\n"
-		+ "\t\t\t\t g) Recuperacion de proba con código inexistente\n");
+		+ "\t\t\t\t g) Encadeamento EAGER\n");
     	
     	// Situación de partida
     	// pr0 desligado
@@ -222,21 +231,21 @@ public class Test2_Usuarios_Pruebas {
     	log.info("Recuperacion de proba con referencia EAGER a sanitario\n");
     	
     	p = pruebaDao.recuperaPorCod(productorDatos.pru0.getCodPrueba());
-    	Assert.assertEquals(productorDatos.pru0.getSanitario(), p.getSanitario());
+    	Assert.assertEquals(productorDatos.pru0.getSanitario().getDni(), p.getSanitario().getDni());
     	
     	log.info("");
     	log.info("Recuperacion de paciente con referencia EAGER á colección de probas\n");
+    	
+    	// Situación de partida
+    	// p0 desligado
     	
     	pac = (Paciente) usuDao.recuperaPorDni(productorDatos.p0.getDni());
     	Assert.assertEquals(productorDatos.p0.getPruebas().first(), pac.getPruebas().first());
     	
     	log.info("");
-    	log.info("Probando encadeamento de EAGER dende paciente a sanitario da proba dun paciente\n");
-    	Assert.assertEquals(productorDatos.p0.getPruebas().first().getSanitario(), pac.getPruebas().first().getSanitario());
+    	log.info("Probando encadeamento EAGER dende paciente ao sanitario da proba dun paciente\n");
+    	Assert.assertEquals(productorDatos.p0.getPruebas().first().getSanitario().getDni(), pac.getPruebas().first().getSanitario().getDni());
     	
-    	log.info("");
-    	log.info("Recuperando proba con código inexistente\n");
-    	Assert.assertNull(pruebaDao.recuperaPorCod("noexiste"));
     }
     
     @Test
@@ -250,7 +259,9 @@ public class Test2_Usuarios_Pruebas {
     	log.info("");	
 		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
 
+		// Crea p0, p1, pSinpruebas, pru0, pru1, pru2
 		productorDatos.creaPacienteConPruebas();
+		// Rexistra creacións na bd
 		productorDatos.registraUsuarios();
 		
 		log.info("");	
@@ -275,7 +286,9 @@ public class Test2_Usuarios_Pruebas {
     	log.info("");	
 		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
 		
+		// Crea p0, p1, pSinpruebas, pru0, pru1, pru2
 		productorDatos.creaPacienteConPruebas();
+		// Rexistra creacións na bd
 		productorDatos.registraUsuarios();
 		
 		log.info("");	
@@ -295,7 +308,9 @@ public class Test2_Usuarios_Pruebas {
     	log.info("");	
 		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
 		
+		// Crea p0, p1, pSinpruebas, pru0, pru1, pru2
 		productorDatos.creaPacienteConPruebas();
+		// Rexistra creacións na bd
 		productorDatos.registraUsuarios();
 		
 		log.info("");	
@@ -303,7 +318,7 @@ public class Test2_Usuarios_Pruebas {
     	log.info("Obxectivo: Proba de eliminación de paciente con probas asignadas\n");
     	
     	// Situación de partida
-    	// p0, pru0, pr2 desligado
+    	// p0, pru0, pru2 desligado
     	
     	Assert.assertNotNull(usuDao.recuperaPorDni(productorDatos.p0.getDni()));
     	Assert.assertNotNull(pruebaDao.recuperaPorCod(productorDatos.pru0.getCodPrueba()));
@@ -328,8 +343,11 @@ public class Test2_Usuarios_Pruebas {
     			+ "\t\t\t\t a) Gravación de proba con código nulo\n"
     			+ "\t\t\t\t b) Gravación de proba con código duplicado\n");
 
+    	// Crea p0, p1, pSinPruebas
     	productorDatos.creaPacientesSueltos();
+    	// Rexistra creacións na bd
     	productorDatos.registraUsuarios();
+    	// Crea pru0, pru1, pru2
     	productorDatos.creaPruebasSueltas();
     	
     	// Situación de partida
@@ -378,18 +396,21 @@ public class Test2_Usuarios_Pruebas {
 
 		log.info("");	
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
-    	log.info("Obxectivo: Proba de violacion de restricions not null e unique\n"   
+    	log.info("Obxectivo: Proba de violacion de restricions de borrado\n"   
     			+ "\t\t\t\t Casos contemplados:\n"
     			+ "\t\t\t\t a) Borrado de probas que xa tiveron lugar\n"
     			+ "\t\t\t\t b) Borrado de sanitario que fixo probas\n");
     	
+    	// Crea s0, s1
     	productorDatos.creaSanitariosSueltos();
+    	// Crea p0, p1, pSinPruebas, pru0, pru1, pru2
     	productorDatos.creaPacienteConPruebasCompletas();
     	productorDatos.pru0.setFecha(LocalDateTime.of(2021, 11, 20, 13, 45));
+    	// Rexistra creacións na bd
     	productorDatos.registraUsuarios();
     	
     	// Situación de partida
-    	// p0, pru0, pru2  desligado
+    	// pru0, s0 desligados
     	
     	log.info("");
     	log.info("Probando borrado de probas que xa tiveron lugar");
